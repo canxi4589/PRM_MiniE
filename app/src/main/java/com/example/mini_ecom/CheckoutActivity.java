@@ -126,11 +126,16 @@ public class CheckoutActivity extends AppCompatActivity {
         // Clear the cart
         CartManager.getInstance().clearCart();
         
-        // Navigate back to main activity
-        Intent intent = new Intent(this, MainActivity.class);
+        // Navigate to success activity
+        Intent intent = new Intent(this, SuccessActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
+
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        startActivity(intent);
+//        finish();
     }
 
     @Override

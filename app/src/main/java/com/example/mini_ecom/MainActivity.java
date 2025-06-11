@@ -107,8 +107,12 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_search) {
             // TODO: Implement search functionality
             return true;
+        } else if (id == R.id.action_transaction_history) {
+            Intent intent = new Intent(this, TransactionActivity.class);
+            startActivity(intent);
+            return true;
         }
-        
+
         return super.onOptionsItemSelected(item);
     }
 }

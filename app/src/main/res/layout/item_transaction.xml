@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/card_margin"
+    android:background="@drawable/card_background"
+    app:cardElevation="@dimen/elevation_md"
+    app:cardCornerRadius="@dimen/corner_radius_lg"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/card_padding"
+        android:gravity="center_vertical">
+
+        <!-- Transaction Details -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Transaction ID and Status -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/spacing_xs">
+
+                <TextView
+                    android:id="@+id/transactionIdTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TXN-001"
+                    android:textSize="@dimen/text_size_sm"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="sans-serif"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/transactionStatusTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Success"
+                    android:textSize="@dimen/text_size_xs"
+                    android:textColor="@color/success"
+                    android:paddingHorizontal="@dimen/spacing_sm"
+                    android:paddingVertical="@dimen/spacing_xs"
+                    android:fontFamily="sans-serif-medium" />
+
+            </LinearLayout>
+
+            <!-- Amount - Main Focus -->
+            <TextView
+                android:id="@+id/transactionAmountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$125.99"
+                android:textSize="@dimen/text_size_xl"
+                android:textStyle="bold"
+                android:textColor="@color/primary_purple"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginBottom="@dimen/spacing_xs" />
+
+            <!-- Date and Time -->
+            <TextView
+                android:id="@+id/transactionDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dec 15, 2024 • 2:30 PM"
+                android:textSize="@dimen/text_size_sm"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="sans-serif"
+                android:layout_marginBottom="@dimen/spacing_xs" />
+
+            <!-- Items Count -->
+            <TextView
+                android:id="@+id/transactionItemsCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3 items"
+                android:textSize="@dimen/text_size_xs"
+                android:textColor="@color/text_tertiary"
+                android:fontFamily="sans-serif" />
+
+        </LinearLayout>
+
+        <!-- Arrow Icon -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_chevron_right"
+            android:layout_marginStart="@dimen/spacing_sm"
+            android:contentDescription="View Details" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
