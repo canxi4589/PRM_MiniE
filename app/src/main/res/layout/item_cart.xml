@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/card_margin"
+    android:background="@drawable/card_background"
+    app:cardElevation="@dimen/elevation_md"
+    app:cardCornerRadius="@dimen/corner_radius_lg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/card_padding">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/cart_item_image_size"
+            android:layout_height="@dimen/cart_item_image_size"
+            app:cardCornerRadius="@dimen/corner_radius_md"
+            app:cardElevation="@dimen/elevation_sm">
+
+            <ImageView
+                android:id="@+id/cartItemImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:contentDescription="Product Image" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_md"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/cartItemNameTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Product Name"
+                    android:textSize="@dimen/text_size_md"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/removeItemButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height_small"
+                    android:text="✕"
+                    android:textSize="@dimen/text_size_sm"
+                    android:textColor="@color/error"
+                    android:background="@drawable/button_secondary"
+                    android:paddingHorizontal="@dimen/spacing_sm"
+                    app:cornerRadius="@dimen/corner_radius_md"
+                    style="@style/Widget.Material3.Button.TextButton" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/cartItemPriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:text="$0.00"
+                android:textSize="@dimen/text_size_sm"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="sans-serif" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/button_secondary"
+                    android:padding="@dimen/spacing_xs">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/decreaseQuantityButton"
+                        android:layout_width="@dimen/button_height_small"
+                        android:layout_height="@dimen/button_height_small"
+                        android:text="−"
+                        android:textSize="@dimen/text_size_md"
+                        android:textColor="@color/primary_purple"
+                        android:backgroundTint="@color/background_primary"
+                        android:fontFamily="sans-serif-medium"
+                        app:cornerRadius="@dimen/corner_radius_sm"
+                        style="@style/Widget.Material3.Button.TextButton" />
+
+                    <TextView
+                        android:id="@+id/cartItemQuantityTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/spacing_md"
+                        android:text="1"
+                        android:textSize="@dimen/text_size_md"
+                        android:textColor="@color/text_primary"
+                        android:fontFamily="sans-serif-medium"
+                        android:minWidth="24dp"
+                        android:gravity="center" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/increaseQuantityButton"
+                        android:layout_width="@dimen/button_height_small"
+                        android:layout_height="@dimen/button_height_small"
+                        android:text="+"
+                        android:textSize="@dimen/text_size_md"
+                        android:textColor="@color/primary_purple"
+                        android:backgroundTint="@color/background_primary"
+                        android:fontFamily="sans-serif-medium"
+                        app:cornerRadius="@dimen/corner_radius_sm"
+                        style="@style/Widget.Material3.Button.TextButton" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/cartItemTotalPriceTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_md"
+                    android:text="$0.00"
+                    android:textSize="@dimen/text_size_lg"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_purple"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="end" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView> 
