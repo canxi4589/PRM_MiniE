@@ -22,6 +22,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private EditText addressEditText;
     private EditText phoneEditText;
     private MaterialButton placeOrderButton;
+    private static final double USD_TO_VND = 25000.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,22 +121,23 @@ public class CheckoutActivity extends AppCompatActivity {
         String address = addressEditText.getText().toString().trim();
         String phone = phoneEditText.getText().toString().trim();
         
+        double totalAmountUSD = CartManager.getInstance().getTotalPrice();
+        if (totalAmountUSD < 0.25) { // Stripe yêu cầu tối thiểu 0.50 USD, bạn có thể chỉnh lại nếu muốn
+            Toast.makeText(this, "Số tiền thanh toán phải từ $0.25 trở lên!", Toast.LENGTH_LONG).show();
+            return;
+        }
         // Simulate order processing
         Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_LONG).show();
         
         // Clear the cart
         CartManager.getInstance().clearCart();
         
-        // Navigate to success activity
-        Intent intent = new Intent(this, SuccessActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        // Navigate to PaymentGateway (Stripe)
+        Intent intent = new Intent(this, PaymentGateway.class);
+        intent.putExtra("total_amount", totalAmountUSD); // Truyền đúng số USD
+        intent.putExtra("currency", "usd"); // Truyền currency động
         startActivity(intent);
         finish();
-
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        startActivity(intent);
-//        finish();
     }
 
     @Override
