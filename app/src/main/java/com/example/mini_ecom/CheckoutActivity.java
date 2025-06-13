@@ -114,28 +114,20 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     private void placeOrder() {
-        // In a real app, you would send this data to a server
         String name = nameEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
         String address = addressEditText.getText().toString().trim();
         String phone = phoneEditText.getText().toString().trim();
+        double totalAmount = CartManager.getInstance().getTotalPrice();
         
-        // Simulate order processing
-        Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_LONG).show();
-        
-        // Clear the cart
-        CartManager.getInstance().clearCart();
-        
-        // Navigate to success activity
-        Intent intent = new Intent(this, SuccessActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        // Navigate to payment method selection
+        Intent intent = new Intent(this, PaymentMethodActivity.class);
+        intent.putExtra("total_amount", totalAmount);
+        intent.putExtra("customer_name", name);
+        intent.putExtra("customer_email", email);
+        intent.putExtra("customer_phone", phone);
+        intent.putExtra("customer_address", address);
         startActivity(intent);
-        finish();
-
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        startActivity(intent);
-//        finish();
     }
 
     @Override

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_lg"
+    android:background="@color/background_primary"
+    android:gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CardStyle.Elevated">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_xl"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_check_circle"
+                android:layout_marginBottom="@dimen/spacing_lg"
+                android:tint="@color/success" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Payment Successful!"
+                style="@style/TextStyle.Heading1"
+                android:textColor="@color/success"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/spacing_lg" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thank you for your purchase!"
+                style="@style/TextStyle.Body"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/spacing_xl" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/border_light"
+                android:layout_marginBottom="@dimen/spacing_lg" />
+
+            <TextView
+                android:id="@+id/transactionIdText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Transaction ID: N/A"
+                style="@style/TextStyle.Caption"
+                android:layout_marginBottom="@dimen/spacing_sm" />
+
+            <TextView
+                android:id="@+id/orderIdText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order ID: N/A"
+                style="@style/TextStyle.Caption"
+                android:layout_marginBottom="@dimen/spacing_sm" />
+
+            <TextView
+                android:id="@+id/amountText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Amount Paid: $0.00"
+                style="@style/TextStyle.Body"
+                android:textStyle="bold"
+                android:textColor="@color/primary_purple"
+                android:layout_marginBottom="@dimen/spacing_xl" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/continueShoppingButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Continue Shopping"
+                    style="@style/ButtonStyle.Primary"
+                    android:layout_marginBottom="@dimen/spacing_md" />
+
+                <Button
+                    android:id="@+id/viewOrdersButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="View Orders"
+                    style="@style/ButtonStyle.Secondary" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout> 
