@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-// import androidx.activity.EdgeToEdge; // Nếu không dùng thì comment lại
+
 
 import com.google.android.material.button.MaterialButton;
 import com.stripe.android.PaymentConfiguration;
@@ -38,7 +38,7 @@ public class PaymentGateway extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // EdgeToEdge.enable(this);
+       
         setContentView(R.layout.activity_payment_gateway);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -46,18 +46,20 @@ public class PaymentGateway extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        // Lấy thông tin từ Intent PaymentGateway
         totalAmount = getIntent().getDoubleExtra("total_amount", 0.0);
         currency = getIntent().getStringExtra("currency");
         if (currency == null) currency = "usd";
         initializeViews();
-
+        // Khởi tạo Stripe
         PaymentConfiguration.init(
             getApplicationContext(),
             "pk_test_51RZQtlRpw5sw2xnalWMscpCULRzSPboYAjpXy2HMl1sO7T5z8kKALrlNX3hxkKsdlShdu53MnWcMujVO3zOlnmH9009frbtXBh"
         );
+        // Tạo PaymentSheet
         paymentSheet = new PaymentSheet(this, this::onPaymentSheetResult);
 
+        // Xử lý sự kiện click nút thanh toán
         MaterialButton btnStripePay = findViewById(R.id.btnStripePay);
         btnStripePay.setOnClickListener(v -> fetchClientSecretAndPay(totalAmount, currency));
     }
@@ -79,12 +81,12 @@ public class PaymentGateway extends AppCompatActivity {
                     json.toString(),
                     MediaType.parse("application/json; charset=utf-8")
             );
-
+            //Call api từ backend để lấy client_secret
             Request request = new Request.Builder()
                     .url("http://10.0.2.2:4242/create-payment-intent")
                     .post(body)
                     .build();
-
+            
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {

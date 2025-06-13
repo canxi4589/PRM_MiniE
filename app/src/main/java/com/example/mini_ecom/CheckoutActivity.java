@@ -122,7 +122,7 @@ public class CheckoutActivity extends AppCompatActivity {
         String phone = phoneEditText.getText().toString().trim();
         
         double totalAmountUSD = CartManager.getInstance().getTotalPrice();
-        if (totalAmountUSD < 0.25) { // Stripe yêu cầu tối thiểu 0.50 USD, bạn có thể chỉnh lại nếu muốn
+        if (totalAmountUSD < 0.25) { // Stripe yêu cầu tối thiểu 0.25 USD
             Toast.makeText(this, "Số tiền thanh toán phải từ $0.25 trở lên!", Toast.LENGTH_LONG).show();
             return;
         }
@@ -134,7 +134,7 @@ public class CheckoutActivity extends AppCompatActivity {
         
         // Navigate to PaymentGateway (Stripe)
         Intent intent = new Intent(this, PaymentGateway.class);
-        intent.putExtra("total_amount", totalAmountUSD); // Truyền đúng số USD
+        intent.putExtra("total_amount", totalAmountUSD); // Truyền vào số tiền thanh toán
         intent.putExtra("currency", "usd"); // Truyền currency động
         startActivity(intent);
         finish();
