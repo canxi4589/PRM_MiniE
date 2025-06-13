@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         products = new ArrayList<>();
         productAdapter = new ProductAdapter(this, products);
+        productAdapter.setOnCartChangedListener(this::updateCartSummary);
         recyclerView.setAdapter(productAdapter);
     }
 

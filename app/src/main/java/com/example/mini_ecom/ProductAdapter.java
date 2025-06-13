@@ -19,10 +19,19 @@ import java.util.Locale;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> products;
     private Context context;
+    private OnCartChangedListener cartChangedListener;
+
+    public interface OnCartChangedListener {
+        void onCartChanged();
+    }
 
     public ProductAdapter(Context context, List<Product> products) {
         this.context = context;
         this.products = products;
+    }
+
+    public void setOnCartChangedListener(OnCartChangedListener listener) {
+        this.cartChangedListener = listener;
     }
 
     @NonNull
@@ -50,6 +59,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.addToCartButton.setOnClickListener(v -> {
             CartManager.getInstance().addToCart(product, 1);
             Toast.makeText(context, product.getName() + " added to cart!", Toast.LENGTH_SHORT).show();
+            if (cartChangedListener != null) {
+                cartChangedListener.onCartChanged();
+            }
         });
     }
 

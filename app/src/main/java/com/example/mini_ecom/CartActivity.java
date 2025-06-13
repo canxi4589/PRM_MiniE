@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,7 +20,7 @@ import java.util.Locale;
 public class CartActivity extends AppCompatActivity implements CartAdapter.OnCartItemChangeListener {
     private RecyclerView cartRecyclerView;
     private CartAdapter cartAdapter;
-    private TextView emptyCartTextView;
+    private LinearLayout emptyCartTextView;
     private TextView totalPriceTextView;
     private MaterialButton checkoutButton;
     private MaterialButton clearCartButton;
