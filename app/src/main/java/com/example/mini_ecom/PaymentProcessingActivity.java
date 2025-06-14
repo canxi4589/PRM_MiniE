@@ -14,6 +14,7 @@ import com.example.mini_ecom.payment.PaymentManager;
 import com.example.mini_ecom.payment.PaymentProcessor;
 import com.example.mini_ecom.payment.PaymentResult;
 import com.example.mini_ecom.payment.vnpay.VNPayRequest;
+import com.example.mini_ecom.payment.stripe.StripeRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,9 @@ public class PaymentProcessingActivity extends AppCompatActivity {
             case VNPAY:
                 processVNPayPayment(paymentManager);
                 break;
+            case STRIPE:
+                processStripePayment(paymentManager);
+                break;
             default:
                 showError("Payment method not implemented yet");
                 break;
@@ -95,6 +99,53 @@ public class PaymentProcessingActivity extends AppCompatActivity {
                 public void onPaymentSuccess(PaymentResult result) {
                     runOnUiThread(() -> {
                         hideLoading();
+                        showSuccess(result);
+                    });
+                }
+
+                @Override
+                public void onPaymentFailure(PaymentResult result) {
+                    runOnUiThread(() -> {
+                        hideLoading();
+                        showError(result.getMessage());
+                    });
+                }
+
+                @Override
+                public void onPaymentCancelled() {
+                    runOnUiThread(() -> {
+                        hideLoading();
+                        showError("Payment was cancelled");
+                    });
+                }
+            }
+        );
+    }
+
+    private void processStripePayment(PaymentManager paymentManager) {
+        StripeRequest request = new StripeRequest(
+            totalAmount,
+            "usd", // You can make this configurable
+            orderId,
+            "Payment for order " + orderId,
+            customerName,
+            customerEmail,
+            customerPhone,
+            customerAddress
+        );
+        
+        paymentManager.processPayment(
+            paymentMethod,
+            this,
+            request,
+            new PaymentProcessor.PaymentCallback() {
+                @Override
+                public void onPaymentSuccess(PaymentResult result) {
+                    runOnUiThread(() -> {
+                        hideLoading();
+                        // Update result with correct order info
+                        result.setOrderId(orderId);
+                        result.setAmount(totalAmount);
                         showSuccess(result);
                     });
                 }

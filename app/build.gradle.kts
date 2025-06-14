@@ -46,6 +46,14 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("com.google.code.gson:gson:2.10.1")
+    
+    // Compose BOM for version alignment
+    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
+    
+    // Stripe dependencies - using compatible version
+    implementation("com.stripe:stripe-android:20.40.1")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

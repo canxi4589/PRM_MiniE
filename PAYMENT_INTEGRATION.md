@@ -90,6 +90,67 @@ GET /vnpay/callback?vnp_Amount=...&vnp_ResponseCode=...&...
 5. **Callback Handling**: VNPay redirects back to app with result
 6. **Success/Failure**: App shows appropriate result screen
 
+## Stripe Integration
+
+### Overview
+Stripe integration has been added to the payment system using the modular architecture. The integration includes:
+
+- **StripeProcessor**: Implements PaymentProcessor interface
+- **StripeRequest**: Extends PaymentRequest for Stripe-specific data
+- **Backend Server**: Node.js server to handle payment intents
+- **PaymentSheet Integration**: Uses Stripe's native Android SDK
+
+### Configuration
+
+#### Stripe Keys
+- **Publishable Key**: Configured in `StripeProcessor.java`
+- **Secret Key**: Configured in `server/server.js`
+
+#### Backend Server
+The Stripe integration requires a backend server to create payment intents securely:
+
+```bash
+cd server
+npm install
+npm start
+```
+
+Server runs on `http://localhost:4242` and provides:
+- `POST /create-payment-intent`: Creates payment intents
+- `GET /health`: Health check endpoint
+
+#### Android Configuration
+The StripeProcessor is automatically registered in PaymentManager and will appear as a payment option in the PaymentMethodActivity.
+
+### Usage Flow
+
+1. **User selects Stripe** in PaymentMethodActivity
+2. **PaymentProcessingActivity** creates StripeRequest
+3. **StripeProcessor** calls backend to create payment intent
+4. **Stripe PaymentSheet** opens for user to complete payment
+5. **Result handling** through PaymentProcessor.PaymentCallback
+
+### Dependencies Added
+
+```kotlin
+// Stripe dependencies (already added to build.gradle.kts)
+implementation("com.stripe:stripe-android:20.25.0")
+implementation("com.squareup.okhttp3:okhttp:4.12.0")
+```
+
+### Testing
+
+1. Start the backend server: `cd server && npm start`
+2. Run the Android app
+3. Add items to cart and proceed to checkout
+4. Select "Stripe" as payment method
+5. Use test card numbers from Stripe documentation
+
+**Test Card Numbers:**
+- `4242424242424242` (Visa)
+- `5555555555554444` (Mastercard)
+- Use any future expiry date and any 3-digit CVC
+
 ## Adding New Payment Methods
 
 ### 1. Create Payment Processor
@@ -113,6 +174,7 @@ public class PayPalProcessor implements PaymentProcessor {
 ```java
 private void initializeProcessors() {
     processors.put(PaymentProcessor.PaymentMethod.VNPAY, new VNPayProcessor());
+    processors.put(PaymentProcessor.PaymentMethod.STRIPE, new StripeProcessor()); // Already added
     processors.put(PaymentProcessor.PaymentMethod.PAYPAL, new PayPalProcessor()); // Add this
 }
 ```
@@ -121,8 +183,8 @@ private void initializeProcessors() {
 ```java
 enum PaymentMethod {
     VNPAY("VNPay"),
+    STRIPE("Stripe"), // Already exists
     PAYPAL("PayPal"), // Add this
-    STRIPE("Stripe"),
     BANK_TRANSFER("Bank Transfer");
 }
 ```

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.mini_ecom.payment.vnpay.VNPayProcessor;
+import com.example.mini_ecom.payment.stripe.StripeProcessor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,9 +32,11 @@ public class PaymentManager {
         // Initialize VNPay processor
         processors.put(PaymentProcessor.PaymentMethod.VNPAY, new VNPayProcessor());
         
+        // Initialize Stripe processor
+        processors.put(PaymentProcessor.PaymentMethod.STRIPE, new StripeProcessor());
+        
         // Add other payment processors here as you implement them
         // processors.put(PaymentProcessor.PaymentMethod.PAYPAL, new PayPalProcessor());
-        // processors.put(PaymentProcessor.PaymentMethod.STRIPE, new StripeProcessor());
     }
 
     /**
