@@ -108,11 +108,19 @@ public class TransactionDetailActivity extends AppCompatActivity {
     }
 
     private void loadTransactionproducts() {
-        // In a real app, you would fetch this data from your database or API
-        // For now, we'll generate sample products based on the transaction ID
-
+        // Try to load real transaction data first
+        TransactionItem realTransaction = OrderHistoryManager.getInstance(this).getOrderByTransactionId(transactionId);
+        
         transactionproducts.clear();
-        transactionproducts.addAll(generateSampleProductsForTransaction(transactionId));
+        
+        if (realTransaction != null && realTransaction.getProducts() != null) {
+            // Load real products from stored order
+            transactionproducts.addAll(realTransaction.getProducts());
+        } else {
+            // Fallback to sample data for demo transactions
+            transactionproducts.addAll(generateSampleProductsForTransaction(transactionId));
+        }
+        
         productAdapter.notifyDataSetChanged();
     }
 

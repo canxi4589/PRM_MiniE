@@ -52,9 +52,8 @@ public class PaymentSuccessActivity extends AppCompatActivity {
         });
 
         viewOrdersButton.setOnClickListener(v -> {
-            // TODO: Implement order history activity
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent intent = new Intent(this, TransactionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         });

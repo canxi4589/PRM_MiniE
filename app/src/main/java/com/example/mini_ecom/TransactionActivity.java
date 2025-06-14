@@ -49,6 +49,13 @@ public class TransactionActivity extends AppCompatActivity {
         }
 
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        
+        // Debug option - long click toolbar to clear order history
+        toolbar.setOnLongClickListener(v -> {
+            OrderHistoryManager.getInstance(this).clearOrderHistory();
+            fetchTransactions(); // Refresh the list
+            return true;
+        });
     }
 
     private void setupRecyclerView() {
@@ -60,14 +67,21 @@ public class TransactionActivity extends AppCompatActivity {
 
     private void fetchTransactions() {
         new Thread(() -> {
-            // Generate sample transactions
-            List<TransactionItem> transactions = generateSampleTransactions();
+            // Load real order history
+            List<TransactionItem> transactions = OrderHistoryManager.getInstance(this).getOrderHistory();
+            
+            // If no real orders exist, show sample data for demo
+            if (transactions.isEmpty()) {
+                transactions = generateSampleTransactions();
+            }
+
+            // Make final copy for lambda
+            final List<TransactionItem> finalTransactions = transactions;
 
             // Update UI on main thread
             runOnUiThread(() -> {
                 allTransactions.clear();
-                allTransactions.addAll(transactions);
-                // ADD THIS LINE - Notify adapter that data has changed
+                allTransactions.addAll(finalTransactions);
                 transactionAdapter.notifyDataSetChanged();
 
                 Log.d("TransactionActivity", "Updated adapter with " + allTransactions.size() + " transactions");
@@ -101,10 +115,10 @@ public class TransactionActivity extends AppCompatActivity {
         products2.add(new Product(5, "Jeans", "Classic blue jeans", 49.99, android.R.drawable.ic_menu_gallery, "Clothing"));
 
         transactions.add(new TransactionItem(
-                "TXN-001",
+                "TXN-002",
                 calendar.getTime(),
                 "Success",
-                "Credit Card",
+                "VNPay",
                 products2
         ));
         // Transaction 3 - 3 days ago
@@ -113,10 +127,10 @@ public class TransactionActivity extends AppCompatActivity {
         products3.add(new Product(6, "Sneakers", "Comfortable running sneakers", 79.99, android.R.drawable.ic_menu_gallery, "Footwear"));
 
         transactions.add(new TransactionItem(
-                "TXN-001",
+                "TXN-003",
                 calendar.getTime(),
                 "Success",
-                "Credit Card",
+                "PayPal",
                 products3
         ));
 
@@ -127,7 +141,7 @@ public class TransactionActivity extends AppCompatActivity {
         products4.add(new Product(8, "Book", "Bestselling novel", 14.99, android.R.drawable.ic_menu_sort_by_size, "Books"));
 
         transactions.add(new TransactionItem(
-                "TXN-001",
+                "TXN-004",
                 calendar.getTime(),
                 "Success",
                 "Credit Card",

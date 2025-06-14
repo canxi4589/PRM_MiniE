@@ -15,6 +15,8 @@ import com.example.mini_ecom.payment.PaymentProcessor;
 import com.example.mini_ecom.payment.PaymentResult;
 import com.example.mini_ecom.payment.vnpay.VNPayRequest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class PaymentProcessingActivity extends AppCompatActivity {
@@ -128,6 +130,21 @@ public class PaymentProcessingActivity extends AppCompatActivity {
 
     private void showSuccess(PaymentResult result) {
         statusText.setText("Payment successful!\nTransaction ID: " + result.getTransactionId());
+        
+        // Save order to history
+        List<CartItem> cartItems = CartManager.getInstance().getCartItems();
+        List<Product> products = new ArrayList<>();
+        for (CartItem item : cartItems) {
+            products.add(item.getProduct());
+        }
+        
+        OrderHistoryManager.getInstance(this).saveOrder(
+            result.getTransactionId(),
+            result.getOrderId(),
+            result.getAmount(),
+            paymentMethod.toString(), // Payment method
+            products
+        );
         
         // Clear cart after successful payment
         CartManager.getInstance().clearCart();

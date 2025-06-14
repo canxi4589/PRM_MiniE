@@ -18,6 +18,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mini_ecom.payment.PaymentResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PaymentWebViewActivity extends AppCompatActivity {
     private static final String TAG = "PaymentWebView";
     
@@ -234,6 +237,25 @@ public class PaymentWebViewActivity extends AppCompatActivity {
 
     private void handlePaymentSuccess(PaymentResult result) {
         Log.d(TAG, "Payment successful: " + result.getMessage());
+        
+        // Save order to history before clearing cart
+        List<CartItem> cartItems = CartManager.getInstance().getCartItems();
+        List<Product> products = new ArrayList<>();
+        for (CartItem item : cartItems) {
+            products.add(item.getProduct());
+        }
+        
+        Log.d(TAG, "Saving order with " + products.size() + " products");
+        
+        OrderHistoryManager.getInstance(this).saveOrder(
+            result.getTransactionId(),
+            result.getOrderId(),
+            result.getAmount(),
+            "VNPay", // Payment method
+            products
+        );
+        
+        // Clear cart after saving order
         CartManager.getInstance().clearCart();
         
         Intent intent = new Intent(this, PaymentSuccessActivity.class);
