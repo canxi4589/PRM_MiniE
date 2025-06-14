@@ -55,10 +55,7 @@
             android:name=".FailureActivity"
             android:exported="false"
             android:parentActivityName=".CheckoutActivity" />
-        <activity
-            android:name=".PaymentActivity"
-            android:exported="false"
-            android:label="Payment" />
+
     </application>
 
 </manifest>
