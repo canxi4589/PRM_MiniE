@@ -156,6 +156,23 @@ public class PaymentProcessingActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         handlePaymentCallback(intent);
     }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Check if we're returning from a payment browser session
+        // by polling the callback endpoint
+        checkPaymentStatus();
+    }
+    
+    private void checkPaymentStatus() {
+        // This method can be used to periodically check payment status
+        // when returning from browser-based payment
+        if (orderId != null && !orderId.isEmpty()) {
+            // Poll the backend for payment status
+            // Implementation depends on your backend API structure
+        }
+    }
 
     private void handlePaymentCallback(Intent intent) {
         if (intent != null && intent.getData() != null) {

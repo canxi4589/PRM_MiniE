@@ -73,6 +73,11 @@
             android:name=".PaymentSuccessActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".PaymentWebViewActivity"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:parentActivityName=".PaymentMethodActivity" />
 
     </application>
 

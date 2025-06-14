@@ -46,13 +46,16 @@ public class VNPayProcessor implements PaymentProcessor {
                     VNPayResponse vnpayResponse = response.body();
                     
                     if (vnpayResponse.isSuccess() && vnpayResponse.getPaymentUrl() != null) {
-                        // Open VNPay payment URL in browser
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(vnpayResponse.getPaymentUrl()));
+                        // Open VNPay payment URL in WebView
+                        Intent intent = new Intent(context, com.example.mini_ecom.PaymentWebViewActivity.class);
+                        intent.putExtra("payment_url", vnpayResponse.getPaymentUrl());
+                        intent.putExtra("order_id", vnpayRequest.getOrderId());
+                        intent.putExtra("amount", vnpayRequest.getAmount());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                         
-                        // Payment initiated successfully, but result will come via callback
-                        Log.d(TAG, "VNPay payment initiated successfully");
+                        // Payment initiated successfully, result will be handled in WebView
+                        Log.d(TAG, "VNPay payment initiated successfully via WebView");
                     } else {
                         callback.onPaymentFailure(new PaymentResult(
                             PaymentResult.Status.FAILED,

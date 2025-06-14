@@ -8,6 +8,10 @@ public class ApiConfig {
     // public static final String BASE_URL = "http://192.168.2.74:7190/api/"; // For physical device (your IP)
 
     // VNPay Configuration
+    // Option 1: Direct deep link (may not work with all payment providers)
+    // public static final String VNPAY_RETURN_URL = "vnpay://return";
+    
+    // Option 2: Web callback that redirects to deep link (recommended)
     public static final String VNPAY_RETURN_URL = "http://10.0.2.2:5096/api/payment/vnpay/callback";
     
     // Timeout configurations (in seconds)
